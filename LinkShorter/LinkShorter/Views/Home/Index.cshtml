@@ -1,8 +1,40 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model Ad
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card mb-3 text-center">
+    <img class="card-img-top" src="https://www.pozycjonusz.pl/wp-content/uploads/2018/05/url.png" alt="Card image cap">
+    <div class="card-body">
+        <h1 class="card-title">Link shorter</h1>
+        <p class="card-text">Very simple and useful tool to <strong>your links shorter.</strong></p>
+        <!--
+        <h5 class="card-title">Link Shorter</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        -->
+    </div>
+    <div class="text-center mb-3">
+        <form asp-action="GenerateShortUrl" mrthod="post" class="justify-content-center" role="form">
+            <div class="form-row justify-content-center">
+                <label asp-for="RedirectUrl" class="sr-only"></label>
+                <input asp-for="RedirectUrl" class="form-control mb-2 col-sm-4" placeholder="Enter here your link" />
+                <button type="submit" class="btn btn-primary mb-2 ml-3">Shorten</button>
+            </div>
+            <div class="form-row justify-content-center">
+                <span asp-validation-for="RedirectUrl" class="text-danger"></span>
+            </div>
+            <div class="form-row justify-content-center">
+                <p class="card-text">
+                    <small class="text-muted">
+                        By clicking Shorten, you are agreeing to our
+                        <a class="" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                    </small>
+                </p>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+

@@ -8,5 +8,7 @@ namespace LinkShorter.Models
         IEnumerable<Ad> GetAds();
 
         Ad GetAdByShortUrl(string shortUrl);
+
+        Ad Add(Ad _newAd);
     }
 }
