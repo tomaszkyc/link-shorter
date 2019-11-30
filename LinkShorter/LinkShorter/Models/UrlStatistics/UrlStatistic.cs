@@ -22,10 +22,13 @@ namespace LinkShorter.Models.UrlStatistics
 
         public string IPAddress { get; set; }
 
+        public DateTime EventDate { get; set; }
+
         public Ad Ad { get; set; }
 
         public UrlStatistic()
         {
+            
         }
     }
 }

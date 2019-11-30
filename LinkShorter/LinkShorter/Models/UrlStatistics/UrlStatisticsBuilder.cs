@@ -28,6 +28,8 @@ namespace LinkShorter.Models
             //ad some network info
             urlStatistic.IPAddress = context.Connection.RemoteIpAddress.ToString();
 
+            //add info about date and time of event
+            urlStatistic.EventDate = DateTime.UtcNow.ToLocalTime();
 
             return urlStatistic;
         }
