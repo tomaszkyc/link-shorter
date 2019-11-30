@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LinkShorter.Models;
+using LinkShorter.Models.UrlStatistics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,8 +36,15 @@ namespace LinkShorter
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //add http context accessor
+            services.AddHttpContextAccessor();
+
+
             //add repositories
             services.AddTransient<IAdRepository, AdRepository>();
+			services.AddTransient<IUrlStatisticsRepository, UrlStatisticsRepository>();
+            services.AddTransient<IUrlStatisticsService, UrlStatisticsService>();
+
 
             //add db context
             services.AddDbContext<AppDbContext>(options =>

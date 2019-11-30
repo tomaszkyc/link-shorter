@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkShorter.Models
 {
@@ -35,6 +38,9 @@ namespace LinkShorter.Models
         {
             return _appDbContext.Ads.FirstOrDefault(p => p.ShortUrl.Equals(shortUrl));
         }
+
+        public Task<Ad> GetAdByShortUrlAsync(Expression<Func<Ad, bool>> predicate)
+            => _appDbContext.Set<Ad>().FirstOrDefaultAsync(predicate);
 
         public IEnumerable<Ad> GetAds()
         {

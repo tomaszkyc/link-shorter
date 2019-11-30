@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LinkShorter.Models;
 using Microsoft.Extensions.Logging;
+using LinkShorter.Models.UrlStatistics;
 
 namespace LinkShorter.Controllers
 {
@@ -15,11 +16,18 @@ namespace LinkShorter.Controllers
 
         private readonly ILogger _logger;
 
+        private readonly IUrlStatisticsService _urlStatisticsService;
 
-        public HomeController(IAdRepository adRepository, ILogger<HomeController> logger)
+
+        public HomeController(IAdRepository adRepository,
+            ILogger<HomeController> logger,
+            IUrlStatisticsService urlStatisticsService)
         {
+
             _adRepository = adRepository;
             _logger = logger;
+            _urlStatisticsService = urlStatisticsService;
+
         }
 
 
@@ -81,17 +89,23 @@ namespace LinkShorter.Controllers
 
 
         [HttpGet("{shortUrl}")]
-        public IActionResult Index(string shortUrl)
+        public async Task<IActionResult> IndexAsync(string shortUrl)
         {
             _logger.LogDebug("Input shorturl is: {shortUrl}", shortUrl);
 
 
             if ( !String.IsNullOrEmpty( shortUrl ) )
             {
+                
+
+
 
                 var ad = _adRepository.GetAdByShortUrl(shortUrl);
                 if ( ad != null )
                 {
+                    await _urlStatisticsService.HandleRequest(ad);
+
+
                     return Redirect( ad.RedirectUrl );
                 }
                 else

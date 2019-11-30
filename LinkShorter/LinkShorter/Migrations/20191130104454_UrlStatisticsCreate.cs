@@ -4,16 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LinkShorter.Migrations
 {
-    public partial class IdentityAdded : Migration
+    public partial class UrlStatisticsCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "RedirectUrl",
-                table: "Ads",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+            migrationBuilder.CreateTable(
+                name: "Ads",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ShortUrl = table.Column<string>(nullable: true),
+                    RedirectUrl = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ads", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -52,6 +59,34 @@ namespace LinkShorter.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UrlStatistics",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BrowserFamily = table.Column<string>(nullable: true),
+                    BrowserMajorVersion = table.Column<string>(nullable: true),
+                    OSFamily = table.Column<string>(nullable: true),
+                    OSMajorVersion = table.Column<string>(nullable: true),
+                    OSMinorVersion = table.Column<string>(nullable: true),
+                    DeviceBrand = table.Column<string>(nullable: true),
+                    DeviceModel = table.Column<string>(nullable: true),
+                    BotService = table.Column<bool>(nullable: false),
+                    IPAddress = table.Column<string>(nullable: true),
+                    AdId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UrlStatistics", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UrlStatistics_Ads_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Ads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,8 +135,8 @@ namespace LinkShorter.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -145,8 +180,8 @@ namespace LinkShorter.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -198,6 +233,11 @@ namespace LinkShorter.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UrlStatistics_AdId",
+                table: "UrlStatistics",
+                column: "AdId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -218,16 +258,16 @@ namespace LinkShorter.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "UrlStatistics");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "RedirectUrl",
-                table: "Ads",
-                nullable: true,
-                oldClrType: typeof(string));
+            migrationBuilder.DropTable(
+                name: "Ads");
         }
     }
 }

@@ -35,6 +35,39 @@ namespace LinkShorter.Migrations
                     b.ToTable("Ads");
                 });
 
+            modelBuilder.Entity("LinkShorter.Models.UrlStatistics.UrlStatistic", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("AdId");
+
+                    b.Property<bool>("BotService");
+
+                    b.Property<string>("BrowserFamily");
+
+                    b.Property<string>("BrowserMajorVersion");
+
+                    b.Property<string>("DeviceBrand");
+
+                    b.Property<string>("DeviceModel");
+
+                    b.Property<string>("IPAddress");
+
+                    b.Property<string>("OSFamily");
+
+                    b.Property<string>("OSMajorVersion");
+
+                    b.Property<string>("OSMinorVersion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId");
+
+                    b.ToTable("UrlStatistics");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -152,9 +185,11 @@ namespace LinkShorter.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -185,15 +220,24 @@ namespace LinkShorter.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("LinkShorter.Models.UrlStatistics.UrlStatistic", b =>
+                {
+                    b.HasOne("LinkShorter.Models.Ad", "Ad")
+                        .WithMany("UrlStatistics")
+                        .HasForeignKey("AdId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

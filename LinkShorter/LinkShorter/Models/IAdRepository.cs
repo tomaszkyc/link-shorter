@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace LinkShorter.Models
 {
@@ -10,5 +12,7 @@ namespace LinkShorter.Models
         Ad GetAdByShortUrl(string shortUrl);
 
         Ad Add(Ad _newAd);
+
+        Task<Ad> GetAdByShortUrlAsync(Expression<Func<Ad, bool>> predicate);
     }
 }
