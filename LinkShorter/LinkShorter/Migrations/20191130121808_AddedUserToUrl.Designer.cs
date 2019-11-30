@@ -4,14 +4,16 @@ using LinkShorter.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LinkShorter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191130121808_AddedUserToUrl")]
+    partial class AddedUserToUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +27,7 @@ namespace LinkShorter.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdOwnerId");
+                    b.Property<string>("IdentityUserId");
 
                     b.Property<string>("RedirectUrl")
                         .IsRequired();
@@ -34,7 +36,7 @@ namespace LinkShorter.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdOwnerId");
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Ads");
                 });
@@ -239,9 +241,9 @@ namespace LinkShorter.Migrations
 
             modelBuilder.Entity("LinkShorter.Models.Ad", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "AdOwner")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("AdOwnerId");
+                        .HasForeignKey("IdentityUserId");
                 });
 
             modelBuilder.Entity("LinkShorter.Models.UrlStatistics.UrlStatistic", b =>

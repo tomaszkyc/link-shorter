@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using LinkShorter.Models;
 using Microsoft.Extensions.Logging;
 using LinkShorter.Models.UrlStatistics;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkShorter.Controllers
 {
@@ -18,15 +19,19 @@ namespace LinkShorter.Controllers
 
         private readonly IUrlStatisticsService _urlStatisticsService;
 
+        private readonly UserManager<IdentityUser> _userManager;
+
 
         public HomeController(IAdRepository adRepository,
             ILogger<HomeController> logger,
-            IUrlStatisticsService urlStatisticsService)
+            IUrlStatisticsService urlStatisticsService,
+            UserManager<IdentityUser> userManager)
         {
 
             _adRepository = adRepository;
             _logger = logger;
             _urlStatisticsService = urlStatisticsService;
+            _userManager = userManager;
 
         }
 
@@ -49,6 +54,9 @@ namespace LinkShorter.Controllers
                 //TODO: Dodać sprawdzanie, czy to nie jest nasz skrócony link
 
 
+                //dodanie użytkownika, który tworzy link (null w przypadku braku)
+                var user = _userManager.GetUserAsync(User);
+                newAd.AdOwner = user.Result;
                 try
                 {
                     _adRepository.Add(newAd);
