@@ -1,0 +1,49 @@
+﻿
+@{
+
+    ViewData["Title"] = "Dashboard";
+}
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dashboard</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_DashboardNav" />
+        </div>
+        <div class="col-md-9">
+
+            <div id="activity-from-actual-chart-wrapper">
+                <p class="text-center">Activity from actual month</p>
+                <div id="activity-from-actual-month-chart">
+                </div>
+            </div>
+
+
+            <div id="top-browser-wrapper">
+                <p class="text-center">Top browsers</p>
+                <div id="top-browsers-chart">
+                </div>
+            </div>
+
+            <div id="top-platforms-chart-wrapper">
+                <p class="text-center">Top platforms</p>
+                <div id="top-platforms-chart">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/js/DashboardStatistics.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" asp-append-version="true"></script>
+}
+

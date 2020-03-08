@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+<style>
+body {
+    background: white;
+}
+.page-wrap {
+    min-height: 100vh;
+}
+</style>
+
+
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">Upsss</span>
+                <div class="mb-2 lead">Something went wrong.</div>
+                <p>You see this page because of some server-side problems. Please contact our <strong>support</strong> for more details</p>
+                <a class="btn btn-link" asp-area="" asp-controller="Home" asp-action="Index">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>

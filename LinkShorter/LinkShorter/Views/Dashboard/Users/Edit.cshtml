@@ -1,0 +1,73 @@
+﻿@using LinkShorter.Models.Dashboard.Users;
+@model EditUserForm
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col mx-auto">
+        <form asp-action="Edit" id="edit-user-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input disabled asp-for="Id" class="form-control w-75" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Username</label>
+                <input disabled asp-for="Username" class="form-control w-75" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control w-75" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountLocked" class="control-label"></label>
+                <input type="checkbox" asp-for="AccountLocked" class="form-control w-75" />
+                <span asp-validation-for="AccountLocked" class="text-danger"></span>
+            </div>
+            <h4>User roles</h4>
+            <hr />
+            <div class="row m-5">
+                <div class="form-group w-25">
+                    <label for="user-available-roles" class="control-label text-center">Available user roles:</label>
+                    <select multiple class="form-control text-center h-75" id="user-available-roles">
+                    </select>
+                </div>
+                <div class="subject-info-arrows text-center m-4">
+                    <button type='button' id='btnAllRight' data-toggle="tooltip" data-placement="top" title="Assign all roles to user" class="btn btn-outline-secondary m-1" >>></button><br />
+                    <button type='button' id='btnRight' data-toggle="tooltip" data-placement="top" title="Assign selected roles to user" class="btn btn-outline-secondary m-1" >></button><br />
+                    <button type='button' id='btnLeft' data-toggle="tooltip" data-placement="top" title="Revoke selected roles for user" class="btn btn-outline-secondary m-1" ><</button><br />
+                    <button type='button' id='btnAllLeft' data-toggle="tooltip" data-placement="top" title="Revoke all assigned roles for user" class="btn btn-outline-secondary m-1" ><<</button>
+                </div>
+                <div class="form-group w-25">
+                    <label for="user-actual-roles" class="control-label">Actual user roles:</label>
+                    <select asp-for="ActualUserRoles" multiple class="form-control text-center h-75" id="user-actual-roles">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <button id="edit-user-btn" type="submit" value="Save" class="btn btn-primary">Save</button>
+                <a role="button" class="btn btn-outline-secondary" asp-action="Index" asp-controller="User">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+
+</div>
+
+
+
+
+@section Scripts {
+    <script src="~/js/Dashboard/Users/EditUser.js" asp-append-version="true"></script>
+}

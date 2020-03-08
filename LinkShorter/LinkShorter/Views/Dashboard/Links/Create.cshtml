@@ -1,0 +1,51 @@
+@model LinkShorter.Models.Link
+
+@{
+    ViewData["Title"] = "Create";
+    bool hasAccessToCreateUniqueLinks = User.IsInRole("Admin") || User.IsInRole("PowerUser");
+}
+
+
+
+<h1>Create</h1>
+
+<h4>Link</h4>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" id="create-link-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ShortUrl" class="control-label"></label>
+                @if (hasAccessToCreateUniqueLinks)
+                {
+                    <input id="short-url-input" asp-for="ShortUrl" placeholder="Write here your unique link" class="form-control" />
+                }
+                else
+                {
+                    <input id="short-url-input" disabled asp-for="ShortUrl" placeholder="Short link will be created after form submit" class="form-control" />
+                }
+                <span asp-validation-for="ShortUrl" class="text-danger"></span>
+                <div hidden id="short-url-uniqueness-warning" class="alert alert-danger" role="alert">
+                    Upsss - this short URL is already taken &#128546 Please choose another.
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RedirectUrl" class="control-label"></label>
+                <input id="redirect-url-input" asp-for="RedirectUrl" class="form-control" />
+                <span id="asp-validation-errors" asp-validation-for="RedirectUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button id="create-link-btn" class="btn btn-primary" type="submit" value="Create" disabled>
+                    Create
+                </button>
+                <a role="button" class="btn btn-outline-secondary" asp-action="Links" asp-controller="Dashboard">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/Dashboard/Links/CreateLink.js" asp-append-version="true"></script>
+}

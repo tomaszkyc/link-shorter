@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Custom' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>https://localhost:5001;http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App">
+      <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
+      <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="UAParser" Version="3.1.43" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\qrcodejs\" />
+    <Folder Include="Models\UrlStatistics\" />
+    <Folder Include="Views\Dashboard\" />
+    <Folder Include="Models\Dashboard\" />
+    <Folder Include="Models\Dashboard\Statistics\" />
+    <Folder Include="Models\Tools\" />
+    <Folder Include="Views\Dashboard\Links\" />
+    <Folder Include="Views\Error\" />
+    <Folder Include="Models\Pagination\" />
+    <Folder Include="Models\Dashboard\Links\" />
+    <Folder Include="wwwroot\js\Dashboard\" />
+    <Folder Include="wwwroot\js\Dashboard\Links\" />
+    <Folder Include="Views\Dashboard\Users\" />
+    <Folder Include="Models\Dashboard\Users\" />
+    <Folder Include="wwwroot\js\Dashboard\Users\" />
+    <Folder Include="wwwroot\js\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Dashboard\Link\Delete.cshtml" />
+    <Content Remove="Views\Dashboard\Link\Details.cshtml" />
+    <Content Remove="Views\Dashboard\Link\Edit.cshtml" />
+    <Content Remove="Views\Dashboard\Link\Index.cshtml" />
+  </ItemGroup>
+</Project>

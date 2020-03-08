@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model Link
+
+<div class="card mb-3 text-center">
+    <img class="card-img-top" src="https://i.imgur.com/y3YGCvi.png" alt="Card image cap">
+    <div class="card-body">
+        <h1 class="card-title">Link shorter</h1>
+        <p class="card-text">Very simple and useful tool to <strong>make your links shorter.</strong></p>
+
+    </div>
+    <div class="text-center mb-3">
+        <form asp-action="GenerateShortUrl" mrthod="post" class="justify-content-center" role="form" id="create-short-link-form">
+            <div class="form-row justify-content-center">
+                <label asp-for="RedirectUrl" class="sr-only"></label>
+                <input asp-for="RedirectUrl" class="form-control mb-2 col-sm-4" placeholder="Enter here your link" />
+                <button id="shorten-button-action" data-toggle="tooltip" data-placement="top" title="This button will activate when you will enter correct link to shorten" type="submit" class="btn btn-primary mb-2 ml-3">Shorten</button>
+            </div>
+            <div class="form-row justify-content-center">
+                <span asp-validation-for="RedirectUrl" class="text-danger"></span>
+            </div>
+            <div class="form-row justify-content-center">
+                <p class="card-text">
+                    <small class="text-muted">
+                        By clicking Shorten, you are agreeing to our
+                        <a class="" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                    </small>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    <script src="~/js/Home/Index.js" asp-append-version="true"></script>
+}

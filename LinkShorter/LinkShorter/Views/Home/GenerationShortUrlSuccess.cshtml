@@ -1,0 +1,10 @@
+﻿@model Link
+@using Microsoft.AspNetCore.Http.Extensions
+
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Short link created successfully!</h4>
+  <p><strong>Your short link:</strong> @String.Format("{0}://{1}/{2}", Context.Request.Scheme, @Context.Request.Host, Model.ShortUrl)</p>
+  <p><strong>Your long link:</strong> @String.Format("{0}", Model.RedirectUrl)</p>
+  <hr>
+  <p class="mb-0">Note: Keep this link for accessing it in the future.</p>
+</div>

@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+@model LinkShorter.Models.Pagination.PaginatedList<IdentityUser>
+
+
+<div id="users-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Username
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
+                </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        <a role="button" class="btn btn-outline-secondary" asp-action="Edit" asp-controller="User" asp-route-userId="@item.Id">Edit</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.TotalPages > 0)
+{
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-controller="User" asp-route-pageId="@(Model.PageIndex - 1)">Previous</a>
+            </li>
+            @for (int i = 0; i < Model.TotalPages; i++)
+            {
+                <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-controller="User" asp-route-pageId="@i">@(i + 1)</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-controller="User" asp-route-pageId="@(Model.PageIndex + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+}

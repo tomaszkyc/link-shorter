@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LinkShorter.Models.Link>
+
+
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+<h1>Dashboard</h1>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_DashboardNav" />
+        </div>
+        <div class="col-md-9">
+            <p>
+                <a asp-action="Create" role="button" class="btn btn-outline-primary">Create New</a>
+            </p>
+            <partial name="_LinksList" />
+        </div>
+    </div>
+</div>
+<!-- Small modal -->
+<div id="myModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+            Link copied to clipboard!
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/24adb84865.js" crossorigin="anonymous"></script>
+    <script src="~/js/DashboardLinks.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,61 @@
+﻿@model LinkShorter.Models.Pagination.PaginatedList<Link>
+
+<script></script>
+
+
+
+<div id="links-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().ShortUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().RedirectUrl)
+                </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortUrl)
+                        <a role="button" class="fas fa-copy" onclick="copyToClipboard('@String.Format("{0}://{1}/{2}", Context.Request.Scheme, @Context.Request.Host, @item.ShortUrl)')" title="Copy to clipboard">
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RedirectUrl)
+                    </td>
+                    <td>
+                        <a role="button" class="btn btn-outline-secondary" asp-action="Edit" asp-controller="Dashboard" asp-route-id="@item.Id">Edit</a>
+                        <a role="button" class="btn btn-outline-info" asp-action="LinkDetails" asp-controller="Dashboard" asp-route-id="@item.Id">Details</a>
+                        <a role="button" class="btn btn-outline-danger" asp-action="Delete" asp-controller="Dashboard" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (Model.TotalPages > 0)
+{
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Links" asp-controller="Dashboard" asp-route-pageId="@(Model.PageIndex - 1)">Previous</a>
+            </li>
+            @for(int i = 0; i < Model.TotalPages; i++)
+            {
+                 <li class="page-item @(Model.PageIndex == i ? "active" : "")">
+                    <a class="page-link" asp-action="Links" asp-controller="Dashboard" asp-route-pageId="@i">@(i + 1)</a>
+                </li>
+            }
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-action="Links" asp-controller="Dashboard" asp-route-pageId="@(Model.PageIndex + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+}
